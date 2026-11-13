@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+.env*
+*.tsbuildinfo
+next-env.d.ts
+snapshot*.json
+
+.vercel
+.env*

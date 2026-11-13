@@ -1,0 +1,30 @@
+name: Sincronizar Monday (só leitura)
+
+on:
+  schedule:
+    - cron: '7 */2 * * *' # a cada 2 horas
+  workflow_dispatch: {}
+
+concurrency:
+  group: sync-monday
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund @vercel/blob@^2
+      - name: Ler Monday e publicar o retrato
+        run: node scripts/sync-monday.mjs --upload
+        env:
+          MONDAY_API_TOKEN: ${{ secrets.MONDAY_API_TOKEN }}
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+          SNAPSHOT_PATH: ${{ secrets.SNAPSHOT_PATH }}

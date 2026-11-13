@@ -77,3 +77,4 @@ tr.clickable { cursor: pointer; } tr.clickable:hover td { background: #FFF8D6; }
   .funnel-row { grid-template-columns: 84px 1fr 64px; }
 }
 @media (prefers-reduced-motion: reduce) { .skel { animation: none; } .chip, .tab { transition: none; } }
+.bars-track, .bars-fill { display: block; }
